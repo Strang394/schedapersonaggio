@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -8,83 +7,83 @@
   <meta name="theme-color" content="#111111" />
   <title>Scheda Dravok</title>
   <style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    margin: 20px;
-    background: #f0f0f0;
-  }
-  h1, h2 {
-    font-family: Georgia, serif;
-    border-bottom: 1px solid #aaa;
-    padding-bottom: 4px;
-    margin-bottom: 10px;
-  }
-  .grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .block {
-    flex: 1 1 300px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 12px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
-    min-width: 280px;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    font-size: 0.95em;
-  }
-  th, td {
-    border: 1px solid #bbb;
-    padding: 5px;
-    text-align: center;
-  }
-  th {
-    background-color: #eaeaea;
-    text-transform: uppercase;
-    font-size: 0.9em;
-  }
-  input[type="number"] {
-    width: 50px;
-    padding: 2px;
-    font-size: 1em;
-    text-align: center;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-  }
-  label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 4px 0;
-    gap: 6px;
-    font-size: 0.95em;
-  }
-  section.block label {
-    margin-bottom: 4px;
-  }
-  .sub-block {
-    margin-top: 10px;
-    padding-top: 5px;
-    border-top: 1px dashed #ccc;
-  }
-  .sub-block h3 {
-    margin-top: 0.5em;
-    font-size: 1.1em;
-    font-weight: bold;
-  }
-</style>
-
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 20px;
+      background: #f0f0f0;
+    }
+    h1, h2 {
+      font-family: Georgia, serif;
+      border-bottom: 1px solid #aaa;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .block {
+      flex: 1 1 300px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 12px;
+      box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+      min-width: 280px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 0.95em;
+    }
+    th, td {
+      border: 1px solid #bbb;
+      padding: 5px;
+      text-align: center;
+    }
+    th {
+      background-color: #eaeaea;
+      text-transform: uppercase;
+      font-size: 0.9em;
+    }
+    input[type="number"] {
+      width: 50px;
+      padding: 2px;
+      font-size: 1em;
+      text-align: center;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 4px 0;
+      gap: 6px;
+      font-size: 0.95em;
+    }
+    section.block label {
+      margin-bottom: 4px;
+    }
+    .sub-block {
+      margin-top: 10px;
+      padding-top: 5px;
+      border-top: 1px dashed #ccc;
+    }
+    .sub-block h3 {
+      margin-top: 0.5em;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+  </style>
+</head>
 <body>
   <h1>Nome: Dravok | Razza: Tiefling | Classe: Ladro Rivisitato | Livello: 2</h1>
-  <div class="grid">
+  <div class="grid" id="scheda-contenuto">
     <section class="block">
-      <h2>Caratteristiche</h2>
+      <h2>⚙️ Caratteristiche</h2>
       <table>
         <thead>
           <tr><th>Stat</th><th>Base</th><th>Temp</th><th>Mod</th></tr>
@@ -98,7 +97,10 @@
           <tr><td>CAR</td><td><input type="number" id="cha" value="6" /></td><td><input type="number" id="cha-temp" value="0" /></td><td><span id="cha-mod">0</span></td></tr>
         </tbody>
       </table>
-      <div class="sub-block">
+    </section>
+  </div>
+ 
+ <div class="sub-block">
         <label>CA Contatto: <input type="number" id="ac-touch" readonly /></label>
         <label>CA Impreparato: <input type="number" id="ac-flat" readonly /></label>
       </div>
@@ -240,85 +242,68 @@
     </tbody>
   </table>
 </section>
+<section class="block">
+    <h2>Backup Scheda</h2>
+    <button onclick="exportSheet()">📂 Esporta Scheda (JSON)</button>
+    <input type="file" id="importFile" accept=".json" onchange="importSheet()" style="margin-left:10px;" />
+  </section>
+  <section class="block">
+    <h2>Cloud Backup ☁️</h2>
+    <button onclick="salvaNelCloud()">☁️ Salva nel cloud</button>
+    <button onclick="caricaDalCloud()">🔄 Carica dal cloud</button>
+  </section>
 
-      <section class="block">
-  <h2>Backup Scheda</h2>
-  <button onclick="exportSheet()">💾 Esporta Scheda (JSON)</button>
-  <input type="file" id="importFile" accept=".json" onchange="importSheet()" style="margin-left:10px;" />
-</section>
-      <section class="block">
-  <h2>Cloud Backup ☁️</h2>
-  <button onclick="salvaNelCloud()">☁️ Salva nel cloud</button>
-  <button onclick="caricaDalCloud()">🔄 Carica dal cloud</button>
-</section>
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(() => console.log('✅ Service Worker registrato'))
-      .catch(err => console.error('❌ Service Worker error:', err));
-  }
-</script>
-
-      <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBHtZwPycmiY9UetKa_ETJpwJGFrk7Jq5M",
-    authDomain: "schedapersonaggio.firebaseapp.com",
-    projectId: "schedapersonaggio",
-    storageBucket: "schedapersonaggio.firebasestorage.app",
-    messagingSenderId: "246198056248",
-    appId: "1:246198056248:web:b25c8c31b6c57103c47dcd",
-    measurementId: "G-XWBFNXVZV5"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  window.salvaNelCloud = async function () {
-    const data = {
-      armi: JSON.parse(localStorage.getItem("armi") || "[]"),
-      armature: JSON.parse(localStorage.getItem("armature") || "[]"),
-      skills: JSON.parse(localStorage.getItem("skills") || "[]"),
-      stats: {}
+  <script src="script.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyBHtZwPycmiY9UetKa_ETJpwJGFrk7Jq5M",
+      authDomain: "schedapersonaggio.firebaseapp.com",
+      projectId: "schedapersonaggio",
+      storageBucket: "schedapersonaggio.firebasestorage.app",
+      messagingSenderId: "246198056248",
+      appId: "1:246198056248:web:b25c8c31b6c57103c47dcd",
+      measurementId: "G-XWBFNXVZV5"
     };
-    ["str", "dex", "con", "int", "wis", "cha"].forEach(stat => {
-      data.stats[stat] = {
-        base: document.getElementById(stat).value,
-        temp: document.getElementById(stat + "-temp").value
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    window.salvaNelCloud = async function () {
+      const data = {
+        armi: JSON.parse(localStorage.getItem("armi") || "[]"),
+        armature: JSON.parse(localStorage.getItem("armature") || "[]"),
+        skills: JSON.parse(localStorage.getItem("skills") || "[]"),
+        stats: {}
       };
-    });
-
-    await setDoc(doc(db, "schede", "dravok"), data);
-    alert("✅ Scheda salvata online!");
-  };
-
-  window.caricaDalCloud = async function () {
-    const docSnap = await getDoc(doc(db, "schede", "dravok"));
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      Object.keys(data.stats).forEach(stat => {
-        document.getElementById(stat).value = data.stats[stat].base;
-        document.getElementById(stat + "-temp").value = data.stats[stat].temp;
+      ["str", "dex", "con", "int", "wis", "cha"].forEach(stat => {
+        data.stats[stat] = {
+          base: document.getElementById(stat).value,
+          temp: document.getElementById(stat + "-temp").value
+        };
       });
-      localStorage.setItem("armi", JSON.stringify(data.armi));
-      localStorage.setItem("armature", JSON.stringify(data.armature));
-      localStorage.setItem("skills", JSON.stringify(data.skills));
-      refreshAll();
-      loadWeapons();
-      loadArmors();
-      loadSkills();
-      alert("✅ Scheda caricata dal cloud!");
-    } else {
-      alert("⚠️ Nessuna scheda trovata online.");
-    }
-  };
-</script>
-
-
-<script src="script.js"></script>
+      await setDoc(doc(db, "schede", "dravok"), data);
+      alert("✅ Scheda salvata online!");
+    };
+    window.caricaDalCloud = async function () {
+      const docSnap = await getDoc(doc(db, "schede", "dravok"));
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        Object.keys(data.stats).forEach(stat => {
+          document.getElementById(stat).value = data.stats[stat].base;
+          document.getElementById(stat + "-temp").value = data.stats[stat].temp;
+        });
+        localStorage.setItem("armi", JSON.stringify(data.armi));
+        localStorage.setItem("armature", JSON.stringify(data.armature));
+        localStorage.setItem("skills", JSON.stringify(data.skills));
+        refreshAll();
+        loadWeapons();
+        loadArmors();
+        loadSkills();
+        alert("✅ Scheda caricata dal cloud!");
+      } else {
+        alert("⚠️ Nessuna scheda trovata online.");
+      }
+    };
+  </script>
 </body>
 </html>
-
