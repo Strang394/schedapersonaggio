@@ -553,3 +553,67 @@ function importSheet() {
   reader.readAsText(file);
 }
 
+<!-- Firebase SDK -->
+<script type="module">
+  // 1. Import SDK
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+  // 2. Configurazione (usa la tua!)
+  const firebaseConfig = {
+    apiKey: "AIzaSyBHtZwPycmiY9UetKa_ETJpwJGFrk7Jq5M",
+    authDomain: "schedapersonaggio.firebaseapp.com",
+    projectId: "schedapersonaggio",
+    storageBucket: "schedapersonaggio.appspot.com",
+    messagingSenderId: "246198056248",
+    appId: "1:246198056248:web:b25c8c31b6c57103c47dcd",
+    measurementId: "G-XWBFNXVZV5"
+  };
+
+  // 3. Inizializza Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // 4. Salva nel cloud
+  window.salvaNelCloud = async function () {
+    const data = {
+      armi: JSON.parse(localStorage.getItem("armi") || "[]"),
+      armature: JSON.parse(localStorage.getItem("armature") || "[]"),
+      skills: JSON.parse(localStorage.getItem("skills") || "[]"),
+      stats: {}
+    };
+    ["str", "dex", "con", "int", "wis", "cha"].forEach(stat => {
+      data.stats[stat] = {
+        base: document.getElementById(stat).value,
+        temp: document.getElementById(stat + "-temp").value
+      };
+    });
+
+    await setDoc(doc(db, "schede", "dravok"), data);
+    alert("✅ Scheda salvata online!");
+  };
+
+  // 5. Carica dal cloud
+  window.caricaDalCloud = async function () {
+    const docSnap = await getDoc(doc(db, "schede", "dravok"));
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      Object.keys(data.stats).forEach(stat => {
+        document.getElementById(stat).value = data.stats[stat].base;
+        document.getElementById(stat + "-temp").value = data.stats[stat].temp;
+      });
+      localStorage.setItem("armi", JSON.stringify(data.armi));
+      localStorage.setItem("armature", JSON.stringify(data.armature));
+      localStorage.setItem("skills", JSON.stringify(data.skills));
+      refreshAll();
+      loadWeapons();
+      loadArmors();
+      loadSkills();
+      alert("✅ Scheda caricata dal cloud!");
+    } else {
+      alert("⚠️ Nessuna scheda trovata online.");
+    }
+  };
+</script>
+
+
