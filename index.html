@@ -246,6 +246,12 @@
   <button onclick="exportSheet()">💾 Esporta Scheda (JSON)</button>
   <input type="file" id="importFile" accept=".json" onchange="importSheet()" style="margin-left:10px;" />
 </section>
+      <section class="block">
+  <h2>Cloud Backup ☁️</h2>
+  <button onclick="salvaNelCloud()">☁️ Salva nel cloud</button>
+  <button onclick="caricaDalCloud()">🔄 Carica dal cloud</button>
+</section>
+
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js')
