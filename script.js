@@ -492,3 +492,64 @@ window.addEventListener("DOMContentLoaded", loadArmors);
 
 
 refreshAll();
+
+function exportSheet() {
+  const data = {
+    armi: JSON.parse(localStorage.getItem("armi") || "[]"),
+    armature: JSON.parse(localStorage.getItem("armature") || "[]"),
+    skills: JSON.parse(localStorage.getItem("skills") || "[]"),
+    stats: {}
+  };
+
+  ["str", "dex", "con", "int", "wis", "cha"].forEach(stat => {
+    data.stats[stat] = {
+      base: document.getElementById(stat).value,
+      temp: document.getElementById(stat + "-temp").value
+    };
+  });
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "scheda-dravok.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importSheet() {
+  const file = document.getElementById("importFile").files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = JSON.parse(e.target.result);
+
+    if (data.stats) {
+      Object.keys(data.stats).forEach(stat => {
+        document.getElementById(stat).value = data.stats[stat].base;
+        document.getElementById(stat + "-temp").value = data.stats[stat].temp;
+      });
+    }
+
+    if (data.armi) {
+      localStorage.setItem("armi", JSON.stringify(data.armi));
+    }
+
+    if (data.armature) {
+      localStorage.setItem("armature", JSON.stringify(data.armature));
+    }
+
+    if (data.skills) {
+      localStorage.setItem("skills", JSON.stringify(data.skills));
+    }
+
+    refreshAll();
+    loadWeapons();
+    loadArmors();
+    loadSkills();
+  };
+
+  reader.readAsText(file);
+}
+
