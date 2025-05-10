@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 20px;
+    background: #f0f0f0;
+  }
+  h1, h2 {
+    font-family: Georgia, serif;
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .block {
+    flex: 1 1 300px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+    min-width: 280px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 0.95em;
+  }
+  th, td {
+    border: 1px solid #bbb;
+    padding: 5px;
+    text-align: center;
+  }
+  th {
+    background-color: #eaeaea;
+    text-transform: uppercase;
+    font-size: 0.9em;
+  }
+  input[type="number"] {
+    width: 50px;
+    padding: 2px;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+  }
+  label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0;
+    gap: 6px;
+    font-size: 0.95em;
+  }
+  section.block label {
+    margin-bottom: 4px;
+  }
+  .sub-block {
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px dashed #ccc;
+  }
+  .sub-block h3 {
+    margin-top: 0.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+</style>
+
+<body>
+  <h1>Nome: Dravok | Razza: Tiefling | Classe: Ladro Rivisitato | Livello: 2</h1>
+  <div class="grid">
+    <section class="block">
+      <h2>Caratteristiche</h2>
+      <table>
+        <thead>
+          <tr><th>Stat</th><th>Base</th><th>Temp</th><th>Mod</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>FOR</td><td><input type="number" id="str" value="10" /></td><td><input type="number" id="str-temp" value="0" /></td><td><span id="str-mod">0</span></td></tr>
+          <tr><td>DES</td><td><input type="number" id="dex" value="17" /></td><td><input type="number" id="dex-temp" value="0" /></td><td><span id="dex-mod">0</span></td></tr>
+          <tr><td>COS</td><td><input type="number" id="con" value="14" /></td><td><input type="number" id="con-temp" value="0" /></td><td><span id="con-mod">0</span></td></tr>
+          <tr><td>INT</td><td><input type="number" id="int" value="16" /></td><td><input type="number" id="int-temp" value="0" /></td><td><span id="int-mod">0</span></td></tr>
+          <tr><td>SAG</td><td><input type="number" id="wis" value="12" /></td><td><input type="number" id="wis-temp" value="0" /></td><td><span id="wis-mod">0</span></td></tr>
+          <tr><td>CAR</td><td><input type="number" id="cha" value="6" /></td><td><input type="number" id="cha-temp" value="0" /></td><td><span id="cha-mod">0</span></td></tr>
+        </tbody>
+      </table>
+      <div class="sub-block">
+        <label>CA Contatto: <input type="number" id="ac-touch" readonly /></label>
+        <label>CA Impreparato: <input type="number" id="ac-flat" readonly /></label>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Classe Armatura (CA) 🛡</h2>
+      <label>Totale: <input type="number" id="ac-total" readonly /></label> = 10 +
+      <label>Bonus Armatura: <input type="number" id="ac-armor" value="3" /></label>
+      <label>Bonus Scudo: <input type="number" id="ac-shield" value="0" /></label>
+      <label>Mod Destrezza: <input type="number" id="ac-dex" value="3" /></label>
+      <label>Mod Taglia: <input type="number" id="ac-size" value="0" /></label>
+      <label>Armatura Naturale: <input type="number" id="ac-natural" value="0" /></label>
+      <label>Mod Deviazione: <input type="number" id="ac-deflection" value="0" /></label>
+      <label>Mod Vari: <input type="number" id="ac-misc" value="0" /></label>
+    </section>
+
+    <section class="block">
+      <div class="sub-block">
+        <h3>Punti Ferita ☠</h3>
+        <label>Massimi: <input type="number" id="hp-max" value="12" /></label>
+        <label>Attuali: <input type="number" id="hp-temp" value="12" /></label>
+        <label>Non letali: <input type="number" id="hp-nonletali" value="0" /></label>
+      </div>
+      <div class="sub-block">
+        <h3>Bonus Attacco Base ⚔</h3>
+        <label>BAB: <input type="number" id="bab-base" value="0" /></label>
+      </div>
+      <div class="sub-block">
+        <h3>Resistenza agli Incantesimi 🔮</h3>
+        <label>Valore: <input type="number" id="sr-total" value="0" /></label>
+      </div>
+      <div class="sub-block">
+        <h3>Iniziativa</h3>
+        <label>Totale: <input type="number" id="init-total" readonly /></label>
+        <label>Mod. Destrezza: <input type="number" id="init-mod" readonly /></label>
+        <label>Bonus Variabile: <input type="number" id="init-misc" value="0" /></label>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>BMC e DMC</h2>
+      <div class="sub-block">
+        <h3>BMC</h3>
+        <label>Totale: <input type="number" id="bmc-total" readonly /></label>
+        <label>BAB: <input type="number" id="bmc-bab" readonly /></label>
+        <label>Mod. Forza: <input type="number" id="bmc-str" readonly /></label>
+        <label>Taglia: <input type="number" id="bmc-size" readonly /></label>
+        <label>Mod. Variabile: <input type="number" id="bmc-misc" value="0" /></label>
+      </div>
+      <div class="sub-block">
+        <h3>DMC</h3>
+        <label>Totale: <input type="number" id="dmc-total" readonly /></label>
+        <label>BAB: <input type="number" id="dmc-bab" readonly /></label>
+        <label>Mod. Forza: <input type="number" id="dmc-str" readonly /></label>
+        <label>Mod. Destrezza: <input type="number" id="dmc-dex" readonly /></label>
+        <label>Taglia: <input type="number" id="dmc-size" readonly /></label>
+        <label>Mod. Variabile: <input type="number" id="dmc-misc" value="0" /></label>
+      </div>
+    </section>
+  </div>
+
+  <section class="block">
+    <h2>Tiri Salvezza</h2>
+    <table>
+      <thead>
+        <tr><th></th><th>Totale</th><th>Base</th><th>Mod Car</th><th>Magico</th><th>Vari</th><th>Temp</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tempra</td><td><input type="number" id="fort-total" readonly /></td><td><input type="number" id="fort-base" value="0" /></td><td><input type="number" id="fort-mod" value="0" /></td><td><input type="number" id="fort-magic" value="0" /></td><td><input type="number" id="fort-misc" value="0" /></td><td><input type="number" id="fort-temp" value="0" /></td></tr>
+        <tr><td>Riflessi</td><td><input type="number" id="ref-total" readonly /></td><td><input type="number" id="ref-base" value="3" /></td><td><input type="number" id="ref-mod" value="3" /></td><td><input type="number" id="ref-magic" value="0" /></td><td><input type="number" id="ref-misc" value="0" /></td><td><input type="number" id="ref-temp" value="0" /></td></tr>
+        <tr><td>Volontà</td><td><input type="number" id="will-total" readonly /></td><td><input type="number" id="will-base" value="0" /></td><td><input type="number" id="will-mod" value="1" /></td><td><input type="number" id="will-magic" value="0" /></td><td><input type="number" id="will-misc" value="0" /></td><td><input type="number" id="will-temp" value="0" /></td></tr>
+      </tbody>
+    </table>
+  </section> 
+
+  <section class="block">
+    <h2>Armi e Armature</h2>
+    <div class="sub-block">
+      <h3>Armi</h3>     
+<table id="weapons-table">
+ <thead>
+  <tr>
+    <th>Arma</th>
+    <th>Danno</th>
+    <th>Tipo</th>
+    <th>Critico</th>
+    <th>B. Attacco</th>
+    <th>Gittata</th>
+    <th>Munizioni</th>
+    <th>Sneak</th>
+    <th></th>
+  </tr>
+</thead>
+  <tbody></tbody>
+</table>
+<button onclick="addWeapon()">➕ Aggiungi Arma</button>
+      <div class="sub-block">
+  <h3>Armature</h3>
+  <table id="armor-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Bonus CA</th>
+        <th>Pen. Prove</th>
+        <th>Bonus Des Max</th>
+         <th>Fallimento Inc Arcani (%)</th>
+        <th>Peso</th>
+        <th>Equipaggiata</th>
+        <th>Note</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button onclick="addArmor()">➕ Aggiungi Armatura</button>
+</div>
+
+
+
+      
+      
+      <section class="block">
+  <h2>Abilità</h2>
+  <table id="skills-table">
+    <thead>
+      <tr>
+        <th>Abilità</th>
+        <th>✔</th>
+        <th>Totale</th>
+        <th>Gradi</th>
+        <th>Mod. Car</th>
+        <th>Vari</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Le righe verranno create via JS -->
+    </tbody>
+  </table>
+</section>
+
+
+  <script src="script.js"></script>
+</div></section></body>
+
